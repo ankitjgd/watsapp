@@ -6,9 +6,14 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import NoSuchElementException
 import time, csv
 from csv import writer
-  
 
-driver = webdriver.Chrome(executable_path='/var/local/learn/chromedriver')
+from selenium.webdriver.chrome.options import Options
+
+options = webdriver.ChromeOptions()
+  
+options.add_argument('--profile-directory=Person 2')
+
+driver = webdriver.Chrome(executable_path='./../chromedriver')
 
 updated_users = open('./../updated_users.csv', 'a')
 
@@ -25,28 +30,25 @@ with open('./../users.csv') as csv_file:
         if(len(number) == 10):
             number = '91'+number
       
-        text = f'Namaskar {name} ji, %0a%0aWe have launched a full range of authorised healing crystals in very effective prices. You can have look at store here https://www.tatvascience.com/store. %0aLet us know if you have any query about healing crystals.%0a%0a Regards %0aTatvaScience.'
+        text = f'Namaskar {name} ji, %0a%0aTatva Science features a comprehensive selection of healing crystals at very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. %0aLet us know if you have any query about healing crystals.%0a%0a Regards %0aTatvaScience.'
 
-        numbers = ['917500101420','919501849601']
+        driver.get("https://web.whatsapp.com/send?phone="+number+"&text="+text)
+        wait = WebDriverWait(driver, 600)
+        
+        
+        x_arg = '//*[@id="side"]/header/div[1]/div/div'
+        head = wait.until(EC.presence_of_element_located((
+            By.XPATH, x_arg)))
+        time.sleep(3)
 
-        for number in numbers:
-            driver.get("https://web.whatsapp.com/send?phone="+number+"&text="+text)
-            wait = WebDriverWait(driver, 600)
-            
-            
-            x_arg = '//*[@id="side"]/header/div[1]/div/div'
-            button = wait.until(EC.presence_of_element_located((
-                By.XPATH, x_arg)))
-            time.sleep(1)
+        try:
+            button = driver.find_element(By.CSS_SELECTOR, '#main > footer > div._2BU3P.tm2tP.copyable-area > div._1SEwr > div > div._3HQNh._1Ae7k > button')
+            button.click()
+            List=[name,number]
+            writer_object = writer(updated_users)
+            writer_object.writerow(List)
+        except NoSuchElementException:
+            continue
 
-            try:
-                driver.find_element(By.XPATH, '//*[@id="app"]/div[1]/span[2]/div[1]/span/div[1]/div/div/div/div/div[1]')
-            except NoSuchElementException:
-                button = driver.find_element(By.XPATH, '//*[@id="main"]/footer/div[1]/div[2]/div/div[2]/button')
-                button.click()
-                List=[name,number]
-                writer_object = writer(updated_users)
-                writer_object.writerow(List)
-
-            time.sleep(1)
+        time.sleep(5)
 updated_users.close()
