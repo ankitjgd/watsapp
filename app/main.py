@@ -3,7 +3,8 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException,TimeoutException
+from selenium.webdriver.common.alert import Alert
 import time, csv
 from csv import writer
 
@@ -33,9 +34,15 @@ with open('./../users.csv') as csv_file:
         text = f'Namaskar {name} ji, %0a%0aTatva Science features a comprehensive selection of healing crystals at very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. %0aLet us know if you have any query about healing crystals.%0a%0a Regards %0aTatvaScience.'
 
         driver.get("https://web.whatsapp.com/send?phone="+number+"&text="+text)
-        wait = WebDriverWait(driver, 600)
+
+        # try:
+        #     WebDriverWait(driver, 2).until (EC.alert_is_present())
+        #     alert = driver.switch_to.alert
+        #     alert.accept()
+        # except TimeoutException:
+        #     pass
         
-        
+        wait = WebDriverWait(driver, 20)
         x_arg = '//*[@id="side"]/header/div[1]/div/div'
         head = wait.until(EC.presence_of_element_located((
             By.XPATH, x_arg)))
@@ -50,5 +57,5 @@ with open('./../users.csv') as csv_file:
         except NoSuchElementException:
             continue
 
-        time.sleep(5)
+        time.sleep(15)
 updated_users.close()
