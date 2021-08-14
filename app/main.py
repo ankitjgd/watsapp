@@ -31,7 +31,25 @@ with open('./../users.csv') as csv_file:
         if(len(number) == 10):
             number = '91'+number
       
-        text = f'Namaskar {name} ji, %0a%0aTatva Science features a comprehensive selection of healing crystals at very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. %0aLet us know if you have any query about healing crystals.%0a%0a Regards %0aTatvaScience.'
+        text = f'''Namaskar {name} ji, 
+        %0a%0aTatva Science features a comprehensive selection of *Healing* *Crystals* at very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. 
+        %0a%0a_Free_ _Services_:
+        %0aCrystal Suggestions
+        %0a1. according to your *Rashi*
+        %0a2. according to *Common Problems*
+        %0a3. to solve *Vastu*
+        %0a4. according to *Tarot Cards*
+        %0a%0aAccess all _free_ _services_ by clicking below link:
+        %0a https://www.tatvascience.com
+        %0a%0aLet us know if you have any query about healing crystals.
+        %0a%0aRegards %0aTatvaScience.'''
+
+        #%0aAccess all _free_ _services_ here: https://www.tatvascience.com
+        #%0a%0a_Premium_ _Services_:
+        #%0aCrystal Suggestions
+        #%0a1. according to your *Birth* *chart* _(refundable 300/-)_. 
+        #%0a2. according to your *specific* *problem*. _(refundable 100/-)_
+        #%0a%0aAll kind of crystals available to be dispatched *same* *day*.
 
         driver.get("https://web.whatsapp.com/send?phone="+number+"&text="+text)
 
