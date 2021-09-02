@@ -11,8 +11,6 @@ from csv import writer
 from selenium.webdriver.chrome.options import Options
 
 options = webdriver.ChromeOptions()
-  
-options.add_argument('--profile-directory=Person 2')
 
 driver = webdriver.Chrome(executable_path='./../chromedriver')
 
