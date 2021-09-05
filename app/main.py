@@ -15,8 +15,10 @@ options = webdriver.ChromeOptions()
 driver = webdriver.Chrome(executable_path='./../chromedriver')
 
 updated_users = open('./../updated_users.csv', 'a')
-
+counter = 0
 with open('./../users.csv') as csv_file:
+    if counter > 70:
+        exit(0)
     csv_reader = csv.reader(csv_file, delimiter=';')
     line_count = 0
     for row in csv_reader:
@@ -39,9 +41,11 @@ with open('./../users.csv') as csv_file:
         %0a4. according to *Tarot Cards*
         %0a%0aAccess all _free_ _services_ by clicking below link:
         %0a https://www.tatvascience.com
-        %0a%0aLet us know if you have any query about healing crystals.
+        %0a%0a*NOW* Book _Birthchart_ _Analysis_ / _Mini_ _Vastu_ appointment in just 300/-
+        %0ahttps://www.tatvascience.com/online-appointment
         %0a%0aRegards %0aTatvaScience.'''
 
+        #%0a%0aLet us know if you have any query about healing crystals.
         #%0aAccess all _free_ _services_ here: https://www.tatvascience.com
         #%0a%0a_Premium_ _Services_:
         #%0aCrystal Suggestions
@@ -70,6 +74,7 @@ with open('./../users.csv') as csv_file:
             List=[name,number]
             writer_object = writer(updated_users)
             writer_object.writerow(List)
+            counter = counter + 1
         except NoSuchElementException:
             continue
 
