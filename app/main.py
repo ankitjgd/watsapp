@@ -1,10 +1,8 @@
 from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.common.exceptions import NoSuchElementException,TimeoutException
-from selenium.webdriver.common.alert import Alert
+from selenium.common.exceptions import NoSuchElementException
 import time, csv
 from csv import writer
 
@@ -17,11 +15,11 @@ driver = webdriver.Chrome(executable_path='./../chromedriver')
 updated_users = open('./../updated_users.csv', 'a')
 counter = 0
 with open('./../users.csv') as csv_file:
-    if counter > 70:
-        exit(0)
     csv_reader = csv.reader(csv_file, delimiter=';')
     line_count = 0
     for row in csv_reader:
+        if counter > 100:
+            exit(0)
         if row[6] == 'NULL' or row[2] == 'NULL' or len(row[6]) > 10:
             continue
         name = row[2]
@@ -32,19 +30,19 @@ with open('./../users.csv') as csv_file:
             number = '91'+number
       
         text = f'''Namaskar {name} ji, 
-        %0a%0aTatva Science features a comprehensive selection of *Healing* *Crystals* at very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. 
-        %0a%0a_Free_ _Services_:
+        %0a%0a*Healing* *Crystals* now at your doorsteps in very affordable prices. Feel free to browse our store here:  https://www.tatvascience.com/store. 
+        %0a%0aOur _Free_ _Services_:
         %0aCrystal Suggestions
-        %0a1. according to your *Rashi*
-        %0a2. according to *Common Problems*
-        %0a3. to solve *Vastu*
-        %0a4. according to *Tarot Cards*
+        %0a1. For *Couples*.
+        %0a2. According to your *Rashi*
+        %0a3. According to *Common Problems*
+        %0a4. To solve *Vastu*
+        %0a5. According to *Tarot Cards*
         %0a%0aAccess all _free_ _services_ by clicking below link:
         %0a https://www.tatvascience.com
-        %0a%0a*NOW* Book _Birthchart_ _Analysis_ / _Mini_ _Vastu_ appointment in just 300/-
+        %0a%0aWant to go for personised service, book appointment below.
         %0ahttps://www.tatvascience.com/online-appointment
         %0a%0aRegards %0aTatvaScience.'''
-
         #%0a%0aLet us know if you have any query about healing crystals.
         #%0aAccess all _free_ _services_ here: https://www.tatvascience.com
         #%0a%0a_Premium_ _Services_:
@@ -61,15 +59,15 @@ with open('./../users.csv') as csv_file:
         #     alert.accept()
         # except TimeoutException:
         #     pass
-        
-        wait = WebDriverWait(driver, 20)
+      
+        wait = WebDriverWait(driver, 1000)
         x_arg = '//*[@id="side"]/header/div[1]/div/div'
         head = wait.until(EC.presence_of_element_located((
             By.XPATH, x_arg)))
-        time.sleep(3)
+        time.sleep(10)
 
         try:
-            button = driver.find_element(By.CSS_SELECTOR, '#main > footer > div._2BU3P.tm2tP.copyable-area > div._1SEwr > div > div._3HQNh._1Ae7k > button')
+            button = driver.find_element(By.CSS_SELECTOR, '#main > footer > div._2BU3P.tm2tP.copyable-area > div > div > div._2lMWa > div._3HQNh._1Ae7k > button')
             button.click()
             List=[name,number]
             writer_object = writer(updated_users)
